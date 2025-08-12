@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ==== RESET & BASE ==== */
@@ -40,7 +41,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(74,85,104,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(74,85,104,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(74,85,104,0.03)"/><circle cx="10" cy="60" r="0.5" fill="rgba(74,85,104,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+  background: url('data:image/svg+xml,') repeat;
   animation: float 20s ease-in-out infinite;
   z-index: 1;
 }
@@ -168,15 +169,25 @@ section {
   padding: 40px 0;
 }
 
-.products-wrapper {
-  display: flex;
-  transition: transform 0.6s ease;
-  height: calc(75vh - 80px);
-  overflow-x: auto;
-  overflow-y: visible;
-  gap: 18px;
-  padding-bottom: 20px;
-  scrollbar-width: thin;
+@media (min-width: 901px) {
+  .products-wrapper {
+    display: flex;
+    overflow: hidden;  /* disable scrolling on desktop */
+    gap: 18px;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .products-wrapper {
+    display: flex;
+    overflow-x: auto;   /* enable scrolling on mobile/tablet */
+    overflow-y: visible;
+    gap: 18px;
+    padding-bottom: 20px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 .product-card {
@@ -239,7 +250,6 @@ section {
 
 .prev { left: 25px; }
 .next { right: 25px; }
-
 
 /* ==== TESTIMONIALS ==== */
 .testimonials {
@@ -481,7 +491,7 @@ section {
 /* ==== MEDIA QUERIES for RESPONSIVENESS ==== */
 @media (max-width: 1200px) {
   .features-grid {
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -598,27 +608,4 @@ section {
     background: #9ad4b6;
     border-radius: 6px;
   }
-}
-html, body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-.products-wrapper {
-  display: flex;
-  overflow-x: auto;  /* Enable horizontal scrolling here */
-  overflow-y: visible;
-  gap: 18px;
-  padding-bottom: 20px;
-  scrollbar-width: thin;
-  -webkit-overflow-scrolling: touch; /* Smooth swipe on iOS */
-}
-
-.testimonials-container {
-  overflow-x: hidden; /* Disable horizontal scroll here */
-}
-
-/* Hide scrollbar globally except applicable areas */
-body::-webkit-scrollbar {
-  display: none;
 }

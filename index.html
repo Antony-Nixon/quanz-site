@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="icon" type="image/png" href="favicon.png">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -490,9 +489,117 @@
             letter-spacing: 1px;
         }
 
-        /* Mobile: Stack them and align everything to center */
+        /* ------------------------------------------------------------------ */
+        /* --- MOBILE OPTIMIZATION OVERRIDES (Max Width: 768px) --- */
+        /* ------------------------------------------------------------------ */
         @media (max-width: 768px) {
-            .footer-grid { flex-direction: column; text-align: center; }
+            
+            :root {
+                --padding-std: 4rem 5%; /* Standardize smaller padding */
+            }
+
+            /* 1. Header & Nav Adjustments */
+            .hero h1 {
+                font-size: 2.5rem; /* Reduced from 4.5rem for overflow */
+                padding: 0 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+            .hero-action .btn-outline {
+                padding: 15px 30px; /* Slightly smaller button */
+            }
+            
+            nav {
+                flex-direction: column; /* Stack logo and links */
+                padding: 1.5rem;
+                background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.7)); /* Darker bg for readability */
+            }
+            .nav-links {
+                margin-top: 1rem;
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links a {
+                font-size: 0.7rem; /* Make links smaller to fit */
+            }
+
+            /* 2. Product Grid (2 per row for both PET and Glass) */
+            .grid-4, .grid-2 {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* Force 2 columns */
+                gap: 1rem; /* Tighter gap */
+            }
+            .product-card {
+                padding: 0.8rem; /* Compact card */
+            }
+            .p-image {
+                height: 160px; /* Reduce image height so it doesn't look stretched */
+            }
+            .p-info h4 { font-size: 0.85rem; line-height: 1.2; }
+            .p-info span { font-size: 0.65rem; }
+
+            /* 3. Workflow (Horizontal Scrollable Line) */
+            .workflow-section {
+                padding-left: 0;
+                padding-right: 0;
+                overflow: hidden; /* Prevent page scrolling */
+            }
+            .workflow-steps {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto; /* Enable horizontal scroll */
+                justify-content: flex-start;
+                gap: 20px;
+                padding: 0 5% 20px 5%; /* Padding for scrollbar space */
+                -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+                scroll-snap-type: x mandatory; /* Optional: Snap effect */
+            }
+            .step {
+                min-width: 200px; /* Force minimum width so steps don't squish */
+                flex: 0 0 auto;
+                scroll-snap-align: center;
+            }
+            /* Hide the connecting lines on mobile as they break in scroll view */
+            .step::after {
+                display: none;
+            }
+            .section-subtitle { margin-bottom: 2rem; }
+
+            /* 4. Contact Section (Form Full Width, Icons Below) */
+            .contact-grid {
+                display: flex;
+                flex-direction: column-reverse; /* Puts the 2nd item (Form) on top visually? No. */
+                /* HTML Order: Socials(1), Form(2). We want Form(Top), Socials(Bottom). */
+                /* Flex-direction: column-reverse will put (2) at top and (1) at bottom. Correct. */
+            }
+
+            .inquiry-box {
+                width: 100%;
+                padding: 2rem;
+                border-top: 4px solid var(--accent-gold); /* Emphasize top border */
+            }
+            
+            .social-list {
+                width: 100%;
+                flex-direction: row; /* Horizontal icons */
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            .social-row {
+                flex: 1 1 40%; /* 2 icons per row approx */
+                padding: 1rem;
+                justify-content: center;
+                border: 1px solid #ddd;
+            }
+            .social-row:hover { transform: none; background: var(--bg-light); }
+            
+            /* Simplify social text on mobile */
+            .social-text h5 { display: none; }
+            .social-text span { font-size: 0.8rem; }
+            
+            /* 5. Footer Mobile Alignment */
+            .footer-grid { flex-direction: column; text-align: center; gap: 3rem; }
             .f-col.right-side { text-align: center; align-items: center; }
             .footer-socials { justify-content: center; }
         }

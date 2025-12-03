@@ -1,252 +1,771 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>QuanZ - The Elegance of Hydration</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuanZ | The Elegance of Hydration</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <style>
+        /* --- 1. LUXURY FOUNDATION --- */
+        :root {
+            --bg-dark: #121212;      
+            --bg-light: #F4F5F0;     
+            --bg-white: #ffffff;
+            --text-main: #2A2A2A;
+            --text-muted: #666666;
+            --accent-gold: #D4AF37;  
+            --border-subtle: rgba(0,0,0,0.06);
+            
+            --font-heading: 'Libre Baskerville', serif;
+            --font-body: 'Montserrat', sans-serif;
+            
+            --padding-std: 7rem 8%;
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --radius-soft: 12px; /* Global soft radius */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: var(--font-body);
+            color: var(--text-main);
+            line-height: 1.8;
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: var(--font-heading);
+            color: var(--text-main);
+            font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+        
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        img { width: 100%; display: block; border-radius: var(--radius-soft); }
+        
+        /* Utility */
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--text-main);
+        }
+        .section-subtitle {
+            display: block;
+            text-align: center;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 4rem;
+        }
+
+        /* Buttons */
+        .btn-gold {
+            display: inline-block;
+            padding: 18px 45px;
+            background: var(--accent-gold);
+            color: white;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            border: 1px solid var(--accent-gold);
+            border-radius: var(--radius-soft);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .btn-gold:hover {
+            background: transparent;
+            color: var(--accent-gold);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 18px 45px;
+            background: transparent;
+            color: var(--text-main);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            border: 1px solid var(--text-main);
+            border-radius: var(--radius-soft);
+        }
+        .btn-outline.light { border-color: white; color: white; }
+        .btn-outline:hover { background: var(--text-main); color: white; }
+        .btn-outline.light:hover { background: white; color: var(--text-main); }
+
+        /* --- 2. NAVBAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            z-index: 1000;
+            transition: var(--transition);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1rem 5%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+        }
+        nav.scrolled .logo { color: var(--text-main); }
+
+        .nav-links { display: flex; gap: 3rem; }
+        .nav-links a {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: white;
+            font-weight: 500;
+            position: relative;
+        }
+        nav.scrolled .nav-links a { color: var(--text-main); }
+        
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px;
+            background: var(--accent-gold); transition: var(--transition);
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- 3. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?q=80&w=2670&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            line-height: 1.2;
+            animation: fadeUp 1s ease-out;
+            color: #ffffff !important; /* Ensuring white color */
+        }
+
+        .hero-action {
+            margin-top: 2rem;
+            animation: fadeUp 1.2s ease-out;
+        }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 3.5 ABOUT SECTION --- */
+        .about-section {
+            padding: var(--padding-std);
+            background: var(--bg-white);
+            text-align: center;
+        }
+
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        /* --- 4. COLLECTIONS (Refined Grid) --- */
+        .collections { padding: var(--padding-std); }
+        
+        .collection-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+        .collection-header h3 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .collection-header p { font-size: 0.9rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+
+        /* Modified Grid for 4x1 Desktop and 2x2 Mobile */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 6rem;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--bg-white);
+            padding: 1.2rem; /* Reduced padding for smaller widgets */
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-soft);
+            transition: var(--transition);
+        }
+        .product-card:hover { border-color: var(--accent-gold); transform: translateY(-5px); }
+
+        .p-image {
+            height: 280px; /* Reduced height to fit 4 in a row neatly */
+            margin-bottom: 1rem;
+            overflow: hidden;
+            position: relative;
+            border-radius: var(--radius-soft);
+        }
+        .p-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .product-card:hover .p-image img { transform: scale(1.05); }
+
+        .p-info h4 { font-size: 1rem; margin-bottom: 0.3rem; }
+        .p-info span { font-size: 0.7rem; color: var(--text-muted); display: block; }
+
+        /* --- 5. PORTFOLIO (Marquee) - UPDATED FOR FIXED WIDTH --- */
+        .portfolio {
+            background: var(--bg-white);
+            padding: 4rem 0;
+            overflow: hidden;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .marquee {
+            display: flex;
+            width: 200%;
+            animation: scroll 30s linear infinite;
+        }
+        
+        .marquee-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .brand-logo {
+            /* CHANGED: Swapped height for width */
+            width: 150px; 
+            height: auto;
+            margin: 0 3rem; /* Reduced margin slightly to accommodate wider logos */
+            object-fit: contain;
+            transition: var(--transition);
+            opacity: 0.85; 
+        }
+        .brand-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- 6. SERVICES (Recurring & Events) --- */
+        .services-section {
+            padding: var(--padding-std);
+            background: var(--bg-light);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .service-card {
+            flex: 1;
+            background: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border: 1px solid transparent;
+            border-radius: var(--radius-soft);
+            transition: var(--transition);
+            min-width: 300px;
+        }
+        .service-card:hover { border-color: var(--accent-gold); transform: translateY(-5px); }
+        .service-card i { font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 1.5rem; }
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .service-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+
+        /* --- 7. WORKFLOW (Process) --- */
+        .workflow-section {
+            padding: var(--padding-std);
+            background: var(--bg-white);
+            text-align: center;
+        }
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: nowrap; /* Ensures they stay in one line */
+            gap: 1rem; /* Reduced gap */
+            margin-top: 4rem;
+        }
+        .step {
+            flex: 1;
+            /* min-width: 200px; Removed to allow shrinking */
+            position: relative;
+        }
+        .step-icon {
+            width: 50px; /* Reduced size */
+            height: 50px; /* Reduced size */
+            background: var(--bg-light);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1rem; /* Reduced font size */
+            position: relative;
+            z-index: 2;
+        }
+        .step h4 { font-size: 0.9rem; margin-bottom: 0.3rem; font-weight: 600; }
+        .step p { font-size: 0.75rem; color: var(--text-muted); }
+        
+        /* Connector Line (Desktop) */
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: -50%;
+            width: 100%;
+            height: 1px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+
+        /* --- 8. CONTACT & SOCIALS --- */
+        .contact-section {
+            padding: var(--padding-std);
+            background: #fafafa;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .social-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .social-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: white;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            border-radius: var(--radius-soft);
+        }
+        .social-row:hover {
+            border-color: var(--accent-gold);
+            transform: translateX(10px);
+        }
+        .social-row i {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            width: 30px;
+            text-align: center;
+        }
+        .social-text h5 {
+            display: none; /* Hide labels */
+        }
+        .social-text span {
+            font-size: 1rem; /* Increased font size */
+            color: var(--text-main); /* Use main text color */
+            font-weight: 500;
+        }
+
+        .inquiry-box {
+            background: var(--bg-white);
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            border-top: 2px solid var(--accent-gold);
+            border-radius: var(--radius-soft);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 0;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 2rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background: transparent;
+            transition: 0.3s;
+            border-radius: 0; /* Keep bottom border only for inputs */
+        }
+        .form-input:focus { outline: none; border-bottom-color: var(--accent-gold); }
+
+        /* --- 9. FOOTER UPDATES --- */
+        footer {
+            background: var(--bg-dark);
+            color: rgba(255,255,255,0.6);
+            padding: 5rem 8% 2rem; /* Increased side padding slightly */
+            font-size: 0.85rem;
+        }
+
+        .footer-grid {
+            display: flex; /* Changed from grid to flex for better Left/Right control */
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 5rem;
+            margin-bottom: 4rem;
+        }
+
+        .f-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        /* Specific styling for the Right Side to align text to the right */
+        .f-col.right-side {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .f-col h4 { color: white; margin-bottom: 1.5rem; font-size: 1rem; letter-spacing: 1px; }
+        .f-col p { margin-bottom: 0.5rem; }
+        .f-col a { display: inline-block; color: rgba(255,255,255,0.6); transition: 0.3s; }
+        .f-col a:hover { color: var(--accent-gold); }
+
+        /* New Footer Social Icons */
+        .footer-socials {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 3rem;
+        }
+        .footer-socials a {
+            font-size: 1.2rem;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .footer-socials a:hover {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        /* Mobile: Stack them and align everything to center */
+        @media (max-width: 768px) {
+            .footer-grid { flex-direction: column; text-align: center; }
+            .f-col.right-side { text-align: center; align-items: center; }
+            .footer-socials { justify-content: center; }
+        }
+    </style>
 </head>
 <body>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>QuanZ</h1>
-      <p>The Elegance of Hydration</p>
-    </div>
-  </section>
-  <!-- Features -->
-  <section class="features">
-    <div class="container">
-      <h2 class="section-title">How We Deliver Freshness</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">💧</div>
-          <h3>Responsibly Sourced, Perfectly Purified</h3>
-          <p>Drawn from trusted reserves, processed with care, and sealed for lasting purity.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔬</div>
-          <h3>Advanced Filtration Technologies</h3>
-          <p>State-of-the-art purification systems ensure every drop meets our exacting standards.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🍃</div>
-          <h3>Glass & BPA-Free PET Options</h3>
-          <p>Premium packaging choices that preserve taste while respecting your health.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">❄️</div>
-          <h3>Cold Chain Logistics</h3>
-          <p>Temperature-controlled distribution maintains optimal quality from source to sip.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Products -->
-  <section class="products">
-    <div class="container">
-      <h2 class="section-title">Our Product Range</h2>
-      <p style="text-align:center; font-size:1.3rem; margin-bottom:40px;">
-        Discover our carefully curated collection of premium water experiences.
-      </p>
-      <div class="products-container">
-        <div class="products-wrapper" id="productsWrapper">
-          <div class="product-card">
-            <h3>Premium Still Water</h3>
-            <p>Pure, refreshing, perfectly balanced for everyday hydration.</p>
-          </div>
-          <div class="product-card">
-            <h3>Alkaline Water</h3>
-            <p>pH 8+ alkaline water for enhanced wellness and vitality.</p>
-          </div>
-          <div class="product-card">
-            <h3>Sparkling Water</h3>
-            <p>Crisp bubbles in flavored and plain varieties for every taste.</p>
-          </div>
-          <div class="product-card">
-            <h3>Custom Bottles & Labels</h3>
-            <p>Personalized glass and PET bottles for special occasions.</p>
-          </div>
-          <div class="product-card">
-            <h3>Herbal Water</h3>
-            <p>Infused with natural herbs for a refreshing, healthy experience.</p>
-          </div>
-        </div>
-        <button class="nav-arrow prev" onclick="scrollProducts(-1)" aria-label="Previous">‹</button>
-        <button class="nav-arrow next" onclick="scrollProducts(1)" aria-label="Next">›</button>
-      </div>
-    </div>
-  </section>
-  <!-- Testimonials -->
-  <section class="testimonials">
-    <div class="container">
-      <h2 class="section-title">What Our Customers Say</h2>
-      <div class="testimonials-container">
-        <div class="testimonial active" data-index="0">
-          <div class="testimonial-content">
-            "Quanz transformed my daily hydration routine. Exceptional taste and quality."
-          </div>
-          <div class="testimonial-author">— Sarah Thomas</div>
-        </div>
-        <div class="testimonial next" data-index="1">
-          <div class="testimonial-content">
-            "As a chef, I love the purity and subtle elegance of Quanz water."
-          </div>
-          <div class="testimonial-author">— Sabari Kannan</div>
-        </div>
-        <div class="testimonial" data-index="2">
-          <div class="testimonial-content">
-            "Our brand visibility has increased thanks to our customized drinking bottles."
-          </div>
-          <div class="testimonial-author">— Joseph Nelson</div>
-        </div>
-      </div>
-      <div class="testimonial-nav">
-        <button onclick="changeTestimonial(-1)">Previous</button>
-        <button onclick="changeTestimonial(1)">Next</button>
-      </div>
-    </div>
-  </section>
-  <!-- Contact Section -->
-  <section class="contact">
-    <div class="container">
-      <h2 class="section-title">Get In Touch</h2>
 
-      <div class="contact-form-wrapper">
-        <form class="contact-form"
-          action="https://formsubmit.co/13e0e4414409a0912a9f7a942a84259f"
-          method="POST" id="contactForm">
-          
-          <h3>Send us a Message</h3>
+    <nav id="navbar">
+        <div class="logo">QUANZ</div>
+        <div class="nav-links">
+            <a href="#about">About Us</a>
+            <a href="#collection">Products</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
 
-          <label for="name">Your Name</label>
-          <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+    <section class="hero">
+        <h1>The Elegance of Hydration</h1>
+        <div class="hero-action">
+            <a href="#contact" class="btn-outline light">Connect With Us</a>
+        </div>
+    </section>
 
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email address" required />
-          
-          <label for="subject">Subject</label>
-          <input type="text" id="subject" name="subject" placeholder="Enter the subject" required/>
+    <section id="about" class="about-section">
+        <span class="section-subtitle">Our Essence</span>
+        <h2 class="section-title" style="font-size: 2.5rem;">Beyond Pure</h2>
+        <p class="about-text">
+            QuanZ is more than water; it is a silent ambassador of your brand’s quality. Sourced from the pristine aquifers of Kerala and refined to perfection, we bridge the gap between nature and luxury. By offering bespoke bottle designs and tailored hydration solutions, we help fine dining establishments and premium events elevate their service.
+        </p>
+    </section>
 
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+    <section id="collection" class="collections">
+        <div class="section-title">The Collection</div>
+        <span class="section-subtitle">Curated for the Discerned</span>
 
-          <button type="submit">Send</button>
-        </form>
-
-        <!-- Social Links Row -->
+        <div class="collection-header">
+            <h3>PET Series</h3>
+            <p>Pristine Clarity • Cafe Edition</p>
+        </div>
         
-        <div class="social-icons">
-          <a href="https://wa.me/916282117081" target="_blank" class="whatsapp">
-            <i class="fab fa-whatsapp"></i>
-          </a>
-          <a href="https://instagram.com/quanz_official_" target="_blank" class="instagram">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="mailto:info@quanz.in?subject=Inquiry" class="email">
-            <i class="fas fa-envelope"></i>
-          </a>
+        <div class="grid-4">
+            <div class="product-card">
+                <div class="p-image">
+                    <img src="Premium_cylinder_1l.jpg" alt="Premium Cylinder">
+                </div>
+                <div class="p-info">
+                    <h4>Premium Cylinder</h4>
+                    <span> 500ml • 750ml • 1000ml</span>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="p-image">
+                    <img src="cylinder_1L.png" alt="Cylinder">
+                </div>
+                <div class="p-info">
+                    <h4>Cylinder</h4>
+                    <span>300ml • 500ml • 1000ml</span>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="p-image">
+                    <img src="Square_Pyramidal_300ml.jpg" alt="Square Pyramidal">
+                </div>
+                <div class="p-info">
+                    <h4>Square Pyramidal</h4>
+                    <span>300ml • 500ml • 1000ml</span>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="p-image">
+                    <img src="normal_square1.png" alt="Regular Square">
+                </div>
+                <div class="p-info">
+                    <h4>Regular Square</h4>
+                    <span> 500ml • 1000ml</span>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <!-- About -->
-  <section class="about">
-    <div class="container about-content">
-      <h3>About Quanz</h3>
-      <p class="quote">"Premium water should be more than hydration; it reflects taste, values, and occasion."</p>
-      <p>Every bottle of Quanz represents our commitment to excellence, sustainability, and the art of refined hydration.</p>
-    </div>
-  </section>
-  <script>
-    // Product scrolling: native scroll on mobile, carousel on desktop
-    // Product cards scroll logic with current, prev, next classes on mobile
-    // Product Carousel/Scroll Logic (PLACE AT BOTTOM OF BODY)
 
-  let currentProductIndex = 0;
-  const cardsEl = document.querySelectorAll('.product-card');
-  const wrapEl = document.getElementById('productsWrapper');
-  const totalCards = cardsEl.length;
-  const visible = 3;
-  
-  // Add/Remove classes for coverflow style
-  function updateProductClasses() {
-    cardsEl.forEach((card, i) => {
-      card.classList.remove('prev', 'current', 'next', 'first', 'last');
-    });
-    if (cardsEl.length > 0) {
-      cardsEl[0].classList.add('first');
-      cardsEl[cardsEl.length - 1].classList.add('last');
-    }
-    if (window.innerWidth < 769) {
-      cardsEl.forEach((card, idx) => card.style.transform = ""); // Remove transform
-      let current = currentProductIndex;
-      cardsEl[current].classList.add('current');
-      if (current - 1 >= 0) cardsEl[current - 1].classList.add('prev');
-      if (current + 1 < cardsEl.length) cardsEl[current + 1].classList.add('next');
-      // Remove desktop carousel transform
-      wrapEl.style.transform = '';
-    } else {
-      // On desktop, remove coverflow classes
-      cardsEl.forEach(card => card.classList.remove('prev', 'current', 'next'));
-    }
-  }
-  
-  function scrollProducts(dir) {
-    if (window.innerWidth < 769) {
-      // Native scroll on mobile; update index after scroll
-      wrapEl.parentElement.scrollBy({ left: dir * 350, behavior: 'smooth' });
-      setTimeout(() => {
-        const scrollLeft = wrapEl.parentElement.scrollLeft;
-        const cardWidth = cardsEl.offsetWidth + 10;
-        currentProductIndex = Math.round(scrollLeft / cardWidth);
-        currentProductIndex = Math.max(0, Math.min(cardsEl.length - 1, currentProductIndex));
-        updateProductClasses();
-      }, 300);
-    } else {
-      // Desktop: use transform to carousel scroll
-      currentProductIndex += dir;
-      if (currentProductIndex < 0) currentProductIndex = totalCards - visible;
-      else if (currentProductIndex > totalCards - visible) currentProductIndex = 0;
-      wrapEl.style.transform = `translateX(-${currentProductIndex * 356}px)`;
-      updateProductClasses();
-    }
-  }
-  
-  // Detect and fix edge cases on window resize (e.g., switch mobile <-> desktop)
-  window.addEventListener('resize', () => {
-    // On mobile, keep currentProductIndex based on scroll; on desktop, snap to valid range
-    if (window.innerWidth >= 769) {
-      currentProductIndex = Math.max(0, Math.min(currentProductIndex, totalCards - visible));
-      wrapEl.style.transform = `translateX(-${currentProductIndex * 356}px)`;
-    } else {
-      const scrollLeft = wrapEl.parentElement.scrollLeft;
-      const cardWidth = cardsEl.offsetWidth + 10;
-      currentProductIndex = Math.round(scrollLeft / cardWidth);
-    }
-    updateProductClasses();
-  });
-  
-  // Initial
-  updateProductClasses();
-  
-  // Testimonials carousel (keep as is)
-  let ti = 0;
-  const tEls = document.querySelectorAll('.testimonial');
-  function changeTestimonial(dir) {
-    const n = tEls.length;
-    tEls.forEach(el => el.className = 'testimonial');
-    ti = (ti + dir + n) % n;
-    tEls[ti].classList.add('active');
-    tEls[(ti - 1 + n) % n].classList.add('prev');
-    tEls[(ti + 1) % n].classList.add('next');
-  }
-  changeTestimonial(0);
+        <div class="collection-header">
+            <h3>Glass Series</h3>
+            <p>Fine Dining Essentials</p>
+        </div>
 
+        <div class="grid-2">
+            <div class="product-card">
+                <div class="p-image">
+                    <img src="Glass_cylinder.png" alt="Luxury Glass">
+                </div>
+                <div class="p-info">
+                    <h4>Luxury Glass Cylinder</h4>
+                    <span>300ml • 500ml • 750ml • 1000ml</span>
+                    <span>Frosting Option Available</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="p-image">
+                    <img src="Conical_glass.jpg" alt="Conical Glass">
+                </div>
+                <div class="p-info">
+                    <h4>Luxury Glass Conical</h4>
+                    <span>300ml • 500ml • 750ml • 1000ml</span>
+                    <span>Frosting Option Available</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  </script>
+    <section class="portfolio">
+        <div class="marquee">
+            <div class="marquee-content">
+                <img src="meenology_logo.png" alt="Meenology" class="brand-logo">
+                <img src="porsche_logo.png" alt="Porsche" class="brand-logo">
+                <img src="urbanforest_logo.png" alt="Urban Forest" class="brand-logo">
+                <img src="Al_Ibtisam_logo.png" alt="Al Ibtisam" class="brand-logo">
+                
+                <img src="meenology_logo.png" alt="Meenology" class="brand-logo">
+                <img src="porsche_logo.png" alt="Porsche" class="brand-logo">
+                <img src="urbanforest_logo.png" alt="Urban Forest" class="brand-logo">
+                <img src="Al_Ibtisam_logo.png" alt="Al Ibtisam" class="brand-logo">
+                
+                <img src="meenology_logo.png" alt="Meenology" class="brand-logo">
+                <img src="porsche_logo.png" alt="Porsche" class="brand-logo">
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <div class="service-card">
+            <i class="fas fa-handshake"></i>
+            <h3>Recurring Partners</h3>
+            <p>For Hotels, Caterers, & Jewellers. We offer optimized logistics and tailored wholesale quotes based on volume analysis. Seamless delivery schedules ensuring you never run dry.</p>
+        </div>
+        <div class="service-card">
+            <i class="fas fa-glass-cheers"></i>
+            <h3>Grand Events</h3>
+            <p>For Weddings, Birthdays, & Galas. Exclusive branding for your moments of joy. From bespoke labels to cap color matching, we ensure your event shines with a personal touch.</p>
+        </div>
+    </section>
+
+    <section class="workflow-section">
+        <div class="section-title">The Process</div>
+        <span class="section-subtitle">Seamless Partnership</span>
+
+        <div class="workflow-steps">
+            <div class="step">
+                <div class="step-icon">1</div>
+                <h4>Consultation</h4>
+                <p>Contact us with your requirements and volume needs.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">2</div>
+                <h4>Design</h4>
+                <p>Our design team creates a unique, appealing label for your brand.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">3</div>
+                <h4>Quotation</h4>
+                <p>We provide a tailored quote based on design, bottle type, and delivery.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">4</div>
+                <h4>Delivery</h4>
+                <p>We manufacture and deliver the pristine product to your doorstep.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">5</div>
+                <h4>Marketing</h4>
+                <p>Sell or serve water with your branding for subtle, effective marketing.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="section-title">Connect</div>
+        <span class="section-subtitle">Start the Conversation</span>
+
+        <div class="contact-grid">
+            <div class="social-list">
+                <a href="https://instagram.com/quanz_official_" target="_blank" class="social-row">
+                    <i class="fab fa-instagram"></i>
+                    <div class="social-text">
+                        <h5>Instagram</h5>
+                        <span>@quanz_official_</span>
+                    </div>
+                </a>
+                <a href="https://wa.me/916282117081" target="_blank" class="social-row">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="social-text">
+                        <h5>WhatsApp</h5>
+                        <span>+91 6282 117 081</span>
+                    </div>
+                </a>
+                <a href="mailto:info@quanz.in" class="social-row">
+                    <i class="fas fa-envelope"></i>
+                    <div class="social-text">
+                        <h5>Email</h5>
+                        <span>info@quanz.in</span>
+                    </div>
+                </a>
+                <a href="tel:+916282117081" class="social-row">
+                    <i class="fas fa-phone"></i>
+                    <div class="social-text">
+                        <h5>Call Us</h5>
+                        <span>+91 6282 117 081</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="inquiry-box">
+                <h3 style="margin-bottom: 2rem; font-family: var(--font-heading);">Request a Quote</h3>
+                <form action="https://formsubmit.co/13e0e4414409a0912a9f7a942a84259f" method="POST">
+                    <input type="text" name="name" class="form-input" placeholder="Your Name or Establishment" required>
+                    <input type="email" name="email" class="form-input" placeholder="Email Address" required>
+                    <input type="text" name="phone" class="form-input" placeholder="Phone Number">
+                    <textarea name="message" rows="3" class="form-input" placeholder="Tell us about your requirements..." required></textarea>
+                    <button type="submit" class="btn-gold" style="width: 100%;">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            
+            <div class="f-col">
+                <h4>QUANZ</h4>
+                <p style="max-width: 350px;">Curators of purity from the pristine elements of Kerala. Designed for the finest establishments.</p>
+                
+                <div class="footer-socials">
+                    <a href="https://instagram.com/quanz_official_" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/916282117081" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:info@quanz.in" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="f-col right-side">
+                <h4>Office</h4>
+                <p>Quanz LLP, S Janatha rd, Palarivattom</p>
+                <p>Kochi, Kerala, India, Pin: 682025</p>
+                
+                <div style="margin-top: 1.5rem;">
+                    <a href="#" style="margin-left: 15px;">Privacy Policy</a>
+                    <a href="#" style="margin-left: 15px;">Terms of Service</a>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 QuanZ LLP. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Navbar Scrolled Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>

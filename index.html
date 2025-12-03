@@ -537,33 +537,89 @@
             }
             .p-info h4 { font-size: 0.85rem; line-height: 1.2; }
             .p-info span { font-size: 0.65rem; }
-
-            /* 3. Workflow (Horizontal Scrollable Line) */
-            .workflow-section {
-                padding-left: 0;
-                padding-right: 0;
-                overflow: hidden; /* Prevent page scrolling */
-            }
+            
+            /* 1. Container: Vertical Column */
             .workflow-steps {
                 display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto; /* Enable horizontal scroll */
-                justify-content: flex-start;
-                gap: 20px;
-                padding: 0 5% 20px 5%; /* Padding for scrollbar space */
-                -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
-                scroll-snap-type: x mandatory; /* Optional: Snap effect */
+                flex-direction: column !important;
+                overflow-x: visible !important;
+                padding: 0 1rem !important; /* Add slight side padding */
+                margin-top: 2rem;
+                gap: 0; /* We handle spacing via padding in the steps */
             }
+            
+            /* 2. Step Layout: Grid for precision alignment */
             .step {
-                min-width: 200px; /* Force minimum width so steps don't squish */
-                flex: 0 0 auto;
-                scroll-snap-align: center;
+                display: grid !important;
+                /* Column 1: Icon (50px), Column 2: Text (Rest of space) */
+                grid-template-columns: 50px 1fr; 
+                /* Rows: Title on top, Description below */
+                grid-template-rows: auto auto;
+                gap: 0 1.5rem; /* Gap between Icon and Text */
+                
+                position: relative; /* Anchor for the line */
+                padding-bottom: 3rem; /* Space at bottom for the line to extend */
+                text-align: left !important;
+                min-width: 100%;
+                flex: none;
             }
-            /* Hide the connecting lines on mobile as they break in scroll view */
-            .step::after {
-                display: none;
+            
+            /* 3. Icon Styling: Center it and put it on top */
+            .step-icon {
+                grid-row: 1 / span 2; /* Icon sits alongside both title and text */
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+                margin: 0 auto !important; /* Center horizontally in the 50px column */
+                background: var(--bg-white); /* Important: covers the line behind it */
+                z-index: 2; /* Sits on top of the line */
+                position: relative;
+                border: 1px solid var(--accent-gold);
             }
-            .section-subtitle { margin-bottom: 2rem; }
+            
+            /* 4. Text Styling */
+            .step h4 {
+                align-self: end; /* Aligns title with top of icon */
+                margin: 0 0 0.3rem 0;
+                font-size: 1.1rem;
+                line-height: 1.2;
+            }
+            
+            .step p {
+                align-self: start;
+                margin: 0;
+                font-size: 0.9rem;
+                color: var(--text-muted);
+                line-height: 1.5;
+            }
+            
+            /* --- THE CONNECTING LINE --- */
+            /* This draws a line from the center of one icon down to the next */
+            .step:not(:last-child)::before {
+                content: '';
+                position: absolute;
+                top: 40px; /* Starts right below the icon */
+                left: 25px; /* Exact horizontal center (50px col width / 2) */
+                width: 1px;
+                height: 100%; /* Spans the full height of the step */
+                background: #e0e0e0; /* Subtle grey line */
+                z-index: 1;
+            }
+            
+            /* --- THE TINY ARROW --- */
+            /* This adds the arrow head at the bottom of the line */
+            .step:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                bottom: 1.5rem; /* Positioned halfway down the gap */
+                left: 22px;     /* Centered to the line (Line is at 25px) */
+                width: 6px;
+                height: 6px;
+                border: solid var(--accent-gold); /* Gold Arrow */
+                border-width: 0 1px 1px 0; /* Creates the arrow shape */
+                transform: rotate(45deg); /* Rotates square into arrow */
+                z-index: 1;
+            }
 
             /* 4. Contact Section (Form Full Width, Icons Below) */
             .contact-grid {

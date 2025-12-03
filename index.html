@@ -581,23 +581,38 @@
             
             .social-list {
                 width: 100%;
-                flex-direction: row; /* Horizontal icons */
-                flex-wrap: wrap;
-                justify-content: center;
+                display: flex;
+                flex-direction: column; /* Stacks them vertically */
                 gap: 1rem;
             }
+
             .social-row {
-                flex: 1 1 40%; /* 2 icons per row approx */
-                padding: 1rem;
-                justify-content: center;
+                width: 100%;       /* Forces full width */
+                flex: none;        /* Removes the "40%" grid logic */
+                padding: 1.2rem;   /* Nice touch-friendly size */
+                display: flex;
+                align-items: center;
+                justify-content: flex-start; /* Aligns icon to the left */
                 border: 1px solid #ddd;
+                border-radius: var(--radius-soft);
             }
-            .social-row:hover { transform: none; background: var(--bg-light); }
+
+            .social-row:hover { 
+                transform: none; 
+                background: var(--bg-light); 
+            }
             
-            /* Simplify social text on mobile */
-            .social-text h5 { display: none; }
-            .social-text span { font-size: 0.8rem; }
+            /* Text Styling for Vertical Layout */
+            .social-text {
+                margin-left: 15px;
+                text-align: left;
+            }
             
+            .social-text span { 
+                font-size: 1rem; 
+                font-weight: 500; 
+                color: #333;
+            }
             /* 5. Footer Mobile Alignment */
             .footer-grid { flex-direction: column; text-align: center; gap: 3rem; }
             .f-col.right-side { text-align: center; align-items: center; }

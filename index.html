@@ -491,34 +491,65 @@
                 padding: 0 0.5rem;
                 margin-bottom: 1.5rem;
             }
-            .hero-action .btn-outline { padding: 15px 30px; }
-                .hero {
-        background-position: left center !important;
     }
+        
+            /* --- Hero Section Mobile Tweaks --- */
+            .hero {
+                /* This is needed so the button stays inside the hero box */
+                position: relative; 
+                /* Ensures the waterfall on the left is visible */
+                background-position: 25% center !important; 
+            }
+
+            .hero-action {
+                /* Takes the button out of the center flow */
+                position: absolute; 
+                /* Positions it 15% from the bottom of the screen */
+                bottom: 15%; 
+                left: 0;
+                width: 100%;
+                margin: 0;
+            }
 
                         /* 1. Header & Nav - UPDATED */
+                        /* 1. Header & Nav - Dynamic Transparency */
             nav {
                 flex-direction: column;
                 padding: 1.5rem 1rem;
-                /* Changed to transparent so waterfall is visible */
+                /* Default State (At Top): Completely Transparent */
                 background: transparent !important; 
+                backdrop-filter: none;
+                transition: background 0.4s ease; /* Smooth fade */
+            }
+
+            /* Scrolled State (Down the page): Translucent Black */
+            nav.scrolled {
+                /* 60% opacity black with blur */
+                background: rgba(0, 0, 0, 0.6) !important; 
+                backdrop-filter: blur(10px); /* Frosted glass effect */
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+
+            /* IMPORTANT: Keep Text White on Mobile when scrolled */
+            /* (Overrides the desktop behavior that turns text dark) */
+            nav.scrolled .logo, 
+            nav.scrolled .nav-links a {
+                color: white !important;
             }
 
             .nav-links {
                 margin-top: 0.5rem;
-                /* Reduced gap to fit all 4 items */
                 gap: 15px; 
-                /* Forces items to stay in one line */
-                flex-wrap: nowrap; 
+                flex-wrap: nowrap;
                 justify-content: center;
                 width: 100%;
             }
 
             .nav-links a { 
-                /* Smaller font size to ensure they fit in one line */
                 font-size: 0.65rem; 
                 white-space: nowrap;
             }
+
 
             /* 2. Products */
             .grid-4, .grid-2 {

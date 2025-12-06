@@ -496,18 +496,29 @@
         background-position: left center !important;
     }
 
+                        /* 1. Header & Nav - UPDATED */
             nav {
                 flex-direction: column;
-                padding: 1.5rem;
-                background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+                padding: 1.5rem 1rem;
+                /* Changed to transparent so waterfall is visible */
+                background: transparent !important; 
             }
+
             .nav-links {
-                margin-top: 1rem;
-                gap: 1.5rem;
-                flex-wrap: wrap;
+                margin-top: 0.5rem;
+                /* Reduced gap to fit all 4 items */
+                gap: 15px; 
+                /* Forces items to stay in one line */
+                flex-wrap: nowrap; 
                 justify-content: center;
+                width: 100%;
             }
-            .nav-links a { font-size: 0.7rem; }
+
+            .nav-links a { 
+                /* Smaller font size to ensure they fit in one line */
+                font-size: 0.65rem; 
+                white-space: nowrap;
+            }
 
             /* 2. Products */
             .grid-4, .grid-2 {

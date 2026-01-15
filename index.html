@@ -565,41 +565,36 @@
             .p-info h4 { font-size: 0.85rem; line-height: 1.2; }
             .p-info span { font-size: 0.65rem; }
 
-            /* --- 3. LOGO RUNNER (Mobile: Continuous & Slower) --- */
+           /* --- 3. LOGO RUNNER (Mobile Fix) --- */
             .portfolio { 
                 padding: 3rem 0 !important; 
-                text-align: center; 
             }
-            .marquee { width: 100% !important; overflow: hidden; } 
+            
+            .marquee {
+                width: 100%;
+                overflow: hidden;
+            }
             
             .marquee-content {
+                /* Use the same logic as desktop: width adjusts to content */
+                width: max-content;
                 display: flex;
-                width: auto; 
-                flex-wrap: nowrap !important;
-                /* CHANGED: Increased from 3s to 6s (Higher number = Slower speed) */
-                animation: scrollMobile 6s linear infinite !important;
+                align-items: center;
+                /* Speed: 40s is good for mobile (slower than desktop because logos are smaller) */
+                animation: scrollDesktop 40s linear infinite !important; 
             }
             
-            /* Ensure all duplicates are visible for the loop */
-            .marquee-content .brand-logo:nth-child(n+5) {
-                display: block !important;
-            }
+            /* Remove the old 'scrollMobile' keyframes entirely if present */
             
             .brand-logo {
-                /* 50vw = 2 logos visible at a time */
-                width: 50vw !important; 
-                flex: 0 0 50vw !important; 
+                /* Set a fixed pixel width for mobile so they don't look huge */
+                width: 100px !important; 
+                flex: none !important; /* Prevents stretching */
+                height: auto !important;
                 
-                height: 80px !important; 
-                object-fit: contain !important; 
-                
-                margin: 0 !important;
-                padding: 0 1rem !important; 
-            }
-
-            @keyframes scrollMobile { 
-                0% { transform: translateX(0); } 
-                100% { transform: translateX(-150vw); } 
+                /* Smaller gaps between logos on mobile */
+                margin: 0 1.5rem !important; 
+                padding: 0 !important;
             }
 
             /* 4. PROCESS / WORKFLOW (Vertical Timeline) */

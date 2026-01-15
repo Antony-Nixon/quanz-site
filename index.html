@@ -245,7 +245,7 @@
         .p-info h4 { font-size: 1rem; margin-bottom: 0.3rem; }
         .p-info span { font-size: 0.7rem; color: var(--text-muted); display: block; }
 
-        /* --- 5. PORTFOLIO (Desktop Default) --- */
+        /* --- 5. PORTFOLIO (Fixed Smooth Scroll) --- */
         .portfolio {
             background: var(--bg-white);
             padding: 4rem 0;
@@ -255,36 +255,43 @@
         }
         
         .marquee {
-            display: flex;
-            width: 200%; /* Default Desktop Width */
+            /* Changed from 200% to 100% to let the content define the scroll width */
+            width: 100%; 
             overflow: hidden;
+            white-space: nowrap;
         }
         
         .marquee-content {
             display: flex;
-            justify-content: space-around;
             align-items: center;
-            width: 100%;
-            /* Desktop Animation: Smooth Continuous */
-            animation: scrollDesktop 30s linear infinite;
+            /* CRITICAL FIX: 'max-content' forces the box to be exactly as wide as the logos */
+            width: max-content; 
+            /* REMOVED justify-content: space-around (this caused the gap issue) */
+            
+            /* Animation speed */
+            animation: scrollDesktop 60s linear infinite;
         }
         
         .brand-logo {
             width: 150px; 
             height: auto;
-            margin: 0 3rem;
+            /* Using margin to create consistent gaps between every logo */
+            margin: 0 4rem; 
             object-fit: contain;
             transition: var(--transition);
             opacity: 0.85; 
+            /* Prevents logos from shrinking if screen is small */
+            flex-shrink: 0; 
         }
         .brand-logo:hover { opacity: 1; transform: scale(1.05); }
 
         /* DESKTOP KEYFRAMES */
         @keyframes scrollDesktop { 
             0% { transform: translateX(0); } 
+            /* Moves exactly half the length of the long strip */
             100% { transform: translateX(-50%); } 
         }
-
+        
         /* --- 6. SERVICES --- */
         .services-section {
             padding: var(--padding-std);

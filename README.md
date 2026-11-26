@@ -1,6 +1,22 @@
 # QuanZ — The Elegance of Hydration
 
+> **A quiet luxury landing page for a modern hydration brand. ✦**
+
 A responsive, luxury-style static website concept for QuanZ, presenting a premium hydration brand through editorial typography, product collections, visual storytelling, and contact-focused calls to action.
+
+[![Static website](https://img.shields.io/badge/site-static%20website-121212)](#run-locally)
+[![Responsive design](https://img.shields.io/badge/design-responsive-d4af37)](#experience)
+[![HTML and CSS](https://img.shields.io/badge/built%20with-HTML%20%2B%20CSS-e34f26)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+
+## Design story
+
+The page is built around a simple visual idea:
+
+```text
+Water → Form → Atmosphere
+```
+
+Water provides the subject, product form gives the page structure, and atmosphere creates the premium brand feeling. The result is intentionally closer to an editorial campaign page than a conventional product catalog.
 
 ## Experience
 
